@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file contains job definitions in schema version 2.0 format -->
+
+<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+
+  <processing-directives>
+    <overwrite-existing-data>true</overwrite-existing-data>
+  </processing-directives>
+
+  <schedule>
+
+    <!--job任务配置-->
+    <job>
+      <!--name(必填) 任务名称，同一个group中多个job的name不能相同-->
+      <name>TestJob</name>
+      <!--group(选填) 任务所属分组，用于标识任务所属分组-->
+      <group>Test</group>
+      <!--description(选填) 任务描述，用于描述任务具体内容-->
+      <description>TestJob测试</description>
+      <!--job-type(必填) 任务类型，任务的具体类型及所属程序集，格式：实现了IJob接口的包含完整命名空间的类名,程序集名称-->
+      <job-type>Tdf.Quartz.QuartzJobs.TestJob,Tdf.Quartz</job-type>
+      <!--durable(选填) 具体作用不知，官方示例中默认为true-->
+      <durable>true</durable>
+      <!--recover(选填) 具体作用不知，官方示例中默认为false-->
+      <recover>false</recover>
+    </job>
+
+    <!--trigger 任务触发器-->
+    <trigger>
+      <!--使用cron表达式定制任务调度（强烈推荐)-->
+      <cron>
+        <!--name(必填) 触发器名称，同一个分组中的名称必须不同-->
+        <name>TestJobTrigger</name>
+        <!--group(选填) 触发器组-->
+        <group>Test</group>
+        <!--job-name(必填) 要调度的任务名称，该job-name必须和对应job节点中的name完全相同-->
+        <job-name>TestJob</job-name>
+        <!--job-group(选填) 调度任务(job)所属分组，该值必须和job中的group完全相同-->
+        <job-group>Test</job-group>
+        <!--start-time(选填) 任务开始执行时间utc时间，北京时间需要+08:00-->
+        <start-time>2017-01-22T00:00:00+08:00</start-time>
+        <!--cron-expression(必填) cron表达式，由7段构成：秒 分 时 日 月 星期 年（可选），每3秒执行一次-->
+        <cron-expression>0/3 * * * * ?</cron-expression>
+      </cron>
+    </trigger>
+
+  </schedule>
+</job-scheduling-data>
